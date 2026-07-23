@@ -15,7 +15,6 @@ public class TickTimer : MonoBehaviour
         Game.Instance()._tickTimer = this;
 
         InputSystem.actions.FindAction("Pause").performed += PauseTimer;
-        InputSystem.actions["Pause"].performed += PauseTimer;
     }
 
     // Update is called once per frame
