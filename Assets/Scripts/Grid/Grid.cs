@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 public class Grid {
     private List<Plant> _plants;
+	private Queue<UInt32>[] _harvestQueues = new Queue<UInt32>[Enum.GetNames(typeof(PlantTypes.Type)).Length];
 
 	public UInt32 width;
 	public UInt32 height;
@@ -41,5 +42,13 @@ public class Grid {
 
 		newPlant.AssignId(plantId);
 		_plants[(int)plantId] = newPlant;
+		
+		newPlant.OnHarvestRequested += AddPlantToHarvestQueue;
+	}
+
+	private void AddPlantToHarvestQueue(UInt32 id) {
+		Plant plant = _plants[(int)id];
+
+		_harvestQueues[(int)plant.type].Enqueue(id);
 	}
 }
