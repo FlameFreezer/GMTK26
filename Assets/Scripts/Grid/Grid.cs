@@ -81,4 +81,17 @@ public class Grid {
 
 		return matches;
 	}
+
+	public void ResolveHarvesting() {
+		foreach(Queue<UInt32> queue in _harvestQueues) {
+			while(queue.TryDequeue(out UInt32 toHarvest)) {
+				Plant plant = _plants[(int)toHarvest];
+
+				plant.Harvest(QueryAdjacentTiles);
+
+				plant.OnHarvestRequested -= AddPlantToHarvestQueue;
+				_plants[(int)toHarvest] = null;
+			}
+		}
+	}
 }
