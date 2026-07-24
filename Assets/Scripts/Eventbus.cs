@@ -10,6 +10,8 @@ public class EventBus
 
 	public event Action<string, Sprite> onDialogueDisplayRequested;
 
+	public event Action<UInt32, Action> onEventScheduled;
+
 	public event Action onGlobalTimerExhausted;
 
     public void OnTick()
@@ -28,6 +30,10 @@ public class EventBus
 
 	public void OnDialogueDisplayRequested(string text, Sprite portrait) {
 		onDialogueDisplayRequested?.Invoke(text, portrait);
+	}
+
+	public void OnEventScheduled(UInt32 ticksUntilTrigger, Action callback) {
+		onEventScheduled?.Invoke(ticksUntilTrigger, callback);
 	}
 
 	public void OnGlobalTimerExhausted() {
