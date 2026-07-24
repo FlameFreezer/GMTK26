@@ -5,9 +5,9 @@ using UnityEngine;
 
 public class GridController : MonoBehaviour {
 
-    [SerializeField] public UInt32 width = 1;
-    [SerializeField] public UInt32 height = 1;
-    [SerializeField] public UInt32 spacing = 1;
+    [SerializeField] private UInt32 width = 1;
+    [SerializeField] private UInt32 height = 1;
+    [SerializeField] private Vector2 spacing = new(1, 1.4142f);
     [SerializeField] private GameObject plotPrefab;
 
     private Grid _grid = new();
@@ -16,6 +16,8 @@ public class GridController : MonoBehaviour {
     private void Start() {
         _grid.SetSize(width, height);
         Game.Instance().EventBus().onTick += OnTick;
+
+        Initialize();
     }
 
     private void OnDestroy() {
@@ -48,28 +50,35 @@ public class GridController : MonoBehaviour {
         return adjacentPlots;
     }
 
-    private void OnEnable() {
-        if (plotPrefab == null) {
-            Debug.LogError("Plot prefab not set");
+    private void Initialize() {
+        if (width <= 0 || height <= 0) {
+            Debug.LogWarning("GridController: width and height must be greater than 0 (Given: )");
             return;
         }
         
-        float xOrigin = (width - 1) / 2.0f * spacing;
-        float yOrigin = (height - 1) / 2.0f * spacing;
+        if (plotPrefab == null) {
+            Debug.LogError("GridController: Plot prefab not set");
+            return;
+        }
+        
+        float xOrigin = (width - 1) / 2.0f * spacing.x;
+        float yOrigin = (height - 1) / 2.0f * spacing.y;
         
         Plot[] plots = new Plot[width * height];
 
         for (uint yIdx = 0; yIdx < height; yIdx++) {
-            float yOffset = yIdx * spacing - yOrigin;
+            float yOffset = yIdx * spacing.y - yOrigin;
             for (uint xIdx = 0; xIdx < width; xIdx++) {
-                float xOffset = xIdx * spacing - xOrigin;
+                float xOffset = xIdx * spacing.x - xOrigin;
                 
                 GameObject newPlot = Instantiate(plotPrefab, transform.position + new Vector3(xOffset, 0, yOffset), Quaternion.identity, transform);
-                newPlot.GetComponent<Plot>().SetPosition(xIdx, yIdx);
-                newPlot.GetComponent<Plot>().SetParentGrid(_grid);
+                var plotComponent = newPlot.GetComponent<Plot>();
+                plotComponent.SetPosition(xIdx, yIdx);
+                plotComponent.SetParentGrid(_grid);
+                plotComponent.Harvest(); // Remove sprite
                 
                 GetFlatIndexFromCoord(xIdx, yIdx, out int index);
-                plots[index] = newPlot.GetComponent<Plot>();
+                plots[index] = plotComponent;
             }
         }
 
@@ -85,8 +94,8 @@ public class GridController : MonoBehaviour {
             Transform modelTransform = transform.parent.Find("Model");
             if (modelTransform) {
                 var modelScale = modelTransform.localScale;
-                modelScale.x = width * spacing;
-                modelScale.z = height * spacing;
+                modelScale.x = width * spacing.x;
+                modelScale.z = height * spacing.y;
                 modelTransform.localScale = modelScale;
             }
         }
