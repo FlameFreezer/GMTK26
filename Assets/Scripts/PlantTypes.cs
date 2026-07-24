@@ -1,9 +1,37 @@
 using System;
-namespace PlantTypes
+using System.Collections.Generic;
+public class PlantTypes
 {
-    public enum Type : UInt32
+    public enum Type : int
     {
-        NULL_PLANT
+		EYE_WEED,
+        LAMBFLOWER,
+        FUSSPOT,
+        TOADSTOOL,
+        //KEEP AT BOTTOM
+        NULL_PLANT,
     }
+
+    public static string TypeToString(PlantTypes.Type type)
+    {
+        switch(type)
+        {
+            case Type.EYE_WEED: return "Eyeweed";
+            case Type.LAMBFLOWER: return "Lambflower";
+            case Type.FUSSPOT: return "Fusspot";
+            case Type.TOADSTOOL: return "Traveling Toadstool";
+            case Type.NULL_PLANT: return "NULL_PLANT";
+        }
+        // UNREACHBALE
+        throw new InvalidProgramException();
+    }
+
+    public static Dictionary<Type, uint> costs = new()
+    {
+        { Type.EYE_WEED, 1 },
+        { Type.LAMBFLOWER, 7 },
+        { Type.FUSSPOT, 20 },
+        { Type.TOADSTOOL, 16 },
+    };
 }
 
