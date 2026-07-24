@@ -7,10 +7,11 @@ public class Plot : MonoBehaviour, IClickable
     private uint _yIndex;
     private Grid _parentGrid;
     private readonly HashSet<Plot> _adjacentPlots = new();
+    public GameObject plantSprite;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-
+        plantSprite.GetComponent<SpriteRenderer>().enabled = false;
     }
 
     // Update is called once per frame
@@ -39,7 +40,7 @@ public class Plot : MonoBehaviour, IClickable
     public void OnClick()
     {
         _parentGrid.SpawnPlantAtGridPosition(_xIndex, _yIndex, PlantTypes.Type.EYE_WEED);
-        Debug.Log("Planted Eyeweed");
+        plantSprite.GetComponent<SpriteRenderer>().enabled = true;
     }
 
     public void SetParentGrid(Grid parentGrid)
