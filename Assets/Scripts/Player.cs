@@ -9,19 +9,17 @@ public class Player : MonoBehaviour
     void Start() {
         Game.Instance()._player = gameObject;
         Game.Instance().EventBus().onTick += OnTick;
+
+        InputSystem.actions.FindAction("Interact").performed += OnClick;
     }
 
     void Update() { }
 
 	public void OnClick(InputAction.CallbackContext context) {
         Vector2 mousePos = Mouse.current.position.ReadValue();
-        Vector3 mousePosWorld = Camera.main.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, 0.0f));
-		Vector3 cameraPosWorld = Camera.main.transform.position;
-		Vector3 direction = mousePosWorld - cameraPosWorld;
-		direction.Normalize();
-
-		RaycastHit hit;
-		Physics.Raycast(cameraPosWorld, direction, out hit, Mathf.Infinity);
+        Ray ray = Camera.main.ScreenPointToRay(mousePos);
+        RaycastHit hit;
+        Physics.Raycast(ray, out hit, Mathf.Infinity);
 
 		if(hit.transform == null) { return; }
 
