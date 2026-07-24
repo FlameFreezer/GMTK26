@@ -38,14 +38,6 @@ public class TickTimer : MonoBehaviour
         _isPaused = !_isPaused;
         _timeSinceLastTick = 0.0;
         Game.Instance().EventBus().OnPause(_isPaused);
-        if(_isPaused)
-        {
-            Debug.Log("Tick Timer: Paused!");
-        }
-        else
-        {
-            Debug.Log("Tick Timer: Unpaused!");
-        }
     }
 
     public bool IsPaused()
