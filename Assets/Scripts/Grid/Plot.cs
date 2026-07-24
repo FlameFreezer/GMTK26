@@ -58,6 +58,10 @@ public class Plot : MonoBehaviour, IClickable
         plantSprite.GetComponent<SpriteRenderer>().enabled = true;
     }
 
+    public void Harvest() {
+        plantSprite.GetComponent<SpriteRenderer>().enabled = false;
+    }
+
     public void SetParentGrid(Grid parentGrid)
     {
         _parentGrid = parentGrid;
