@@ -4,8 +4,17 @@ using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
-    public UInt32 _money = 2;
     public PlantTypes.Type selectedPlant = PlantTypes.Type.EYE_WEED;
+    private UInt32 _money;
+	public UInt32 money {
+		get { return _money; }
+		set {
+			if(_money == value) { return; }
+
+			_money = value;
+			Game.Instance().EventBus().OnPlayerMoneyChanged(_money);
+		}
+	}
 
     void Start() {
         Game.Instance()._player = gameObject;
