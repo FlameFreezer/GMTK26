@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 
@@ -14,8 +15,8 @@ public class GlobalTimer : MonoBehaviour {
 		UpdateDisplay();
 	}
 
-	private void AddTime(int delta) {
-		_ticksRemaining += delta;
+	private void AddTime(UInt32 delta) {
+		_ticksRemaining += (int)delta;
 
 		UpdateDisplay();
 	}
@@ -24,6 +25,10 @@ public class GlobalTimer : MonoBehaviour {
 		_ticksRemaining--;
 
 		UpdateDisplay();
+
+		if(_ticksRemaining < 1) {
+			Game.Instance().EventBus().OnGlobalTimerExhausted();
+		}
 	}
 
 	private void UpdateDisplay() {
