@@ -2051,7 +2051,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player
   selectedPlant: 0
-  startingMoney: 999
+  startingMoney: 1
 --- !u!4 &527535341
 Transform:
   m_ObjectHideFlags: 0
