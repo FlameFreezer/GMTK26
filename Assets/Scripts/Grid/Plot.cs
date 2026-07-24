@@ -1,5 +1,5 @@
-using System;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class Plot : MonoBehaviour, IClickable
@@ -10,10 +10,12 @@ public class Plot : MonoBehaviour, IClickable
     private readonly HashSet<Plot> _adjacentPlots = new();
     public GameObject plantSprite;
     public Plant plant = null;
+    public GameObject harvestTimeText;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         plantSprite.GetComponent<SpriteRenderer>().enabled = false;
+        harvestTimeText.GetComponent<MeshRenderer>().enabled = false;
     }
 
     // Update is called once per frame
@@ -62,6 +64,9 @@ public class Plot : MonoBehaviour, IClickable
         Plant placedPlant = _parentGrid.SpawnPlantAtGridPosition(_xIndex, _yIndex, type);
         plantSprite.GetComponent<SpriteRenderer>().enabled = true;
         plantSprite.GetComponent<SpriteRenderer>().sprite = Game.Instance().plantSprites.GetSprite(type);
+        harvestTimeText.GetComponent<MeshRenderer>().enabled = true;
+        harvestTimeText.GetComponent<PlantHarvestTimeText>().UpdateText();
+
         return placedPlant;
     }
 
@@ -73,6 +78,7 @@ public class Plot : MonoBehaviour, IClickable
         plant?.Payout();
         plant = null;
         plantSprite.GetComponent<SpriteRenderer>().enabled = false;
+        harvestTimeText.GetComponent<MeshRenderer>().enabled = false;
     }
 
     public void SetParentGrid(GridController parentGrid)
