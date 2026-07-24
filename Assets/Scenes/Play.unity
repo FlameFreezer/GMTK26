@@ -311,6 +311,53 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &72469613
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 72469615}
+  - component: {fileID: 72469614}
+  m_Layer: 0
+  m_Name: PlantSprites
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &72469614
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 72469613}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d14a08c85019544885fee1a221edb48, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlantSprites
+  sprites:
+  - {fileID: 1688812498, guid: b9b75ef87ce4ffa469253af9ea378a46, type: 3}
+  - {fileID: 869731180, guid: b9b75ef87ce4ffa469253af9ea378a46, type: 3}
+--- !u!4 &72469615
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 72469613}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -4368.084, y: 0.00001, z: 8810.276}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &76673191
 GameObject:
   m_ObjectHideFlags: 0
@@ -3365,7 +3412,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -4267504158783651036, guid: 188d62e5da452a24aa55ad8d0e3271ab, type: 3}
       propertyPath: plantType
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2776833426480434341, guid: 188d62e5da452a24aa55ad8d0e3271ab, type: 3}
       propertyPath: m_Pivot.x
@@ -4947,7 +4994,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -4267504158783651036, guid: 188d62e5da452a24aa55ad8d0e3271ab, type: 3}
       propertyPath: plantType
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2776833426480434341, guid: 188d62e5da452a24aa55ad8d0e3271ab, type: 3}
       propertyPath: m_Pivot.x
@@ -5067,3 +5114,4 @@ SceneRoots:
   - {fileID: 1615348974}
   - {fileID: 8355354}
   - {fileID: 1534342705}
+  - {fileID: 72469615}

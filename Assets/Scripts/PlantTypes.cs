@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Xml.Serialization;
 public class PlantTypes
 {
-    public enum Type : UInt32
+    public enum Type : int
     {
-        NULL_PLANT,
 		EYE_WEED,
         LAMBFLOWER,
+
+        //KEEP AT BOTTOM
+        NULL_PLANT,
     }
 
     public static string TypeToString(PlantTypes.Type type)

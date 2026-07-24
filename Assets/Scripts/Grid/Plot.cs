@@ -53,9 +53,15 @@ public class Plot : MonoBehaviour, IClickable
             Debug.Log($"Selected plant costs ${plantCost} but you only have {player.money}");
             return;
         }
-        _parentGrid.SpawnPlantAtGridPosition(_xIndex, _yIndex, player.selectedPlant);
         player.money -= plantCost;
+        PlacePlant(player.selectedPlant);
+    }
+
+    void PlacePlant(PlantTypes.Type type)
+    {
+        _parentGrid.SpawnPlantAtGridPosition(_xIndex, _yIndex, type);
         plantSprite.GetComponent<SpriteRenderer>().enabled = true;
+        plantSprite.GetComponent<SpriteRenderer>().sprite = Game.Instance().plantSprites.GetSprite(type);
     }
 
     public void Harvest(Func<UInt32, GridQueryConfig, Func<Plant, bool>, UInt32> adjacentQueryCallback) {

@@ -184,6 +184,9 @@ public class GridController : MonoBehaviour {
             case PlantTypes.Type.EYE_WEED:
                 newPlant = new EyeWeed();
                 break;
+            case PlantTypes.Type.LAMBFLOWER:
+                newPlant = new Lambflower();
+                break;
             default: return; // TODO - send an error
         }
 
