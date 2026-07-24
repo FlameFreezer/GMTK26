@@ -2,5 +2,6 @@ using System;
 
 public class EventBus
 {
-    public Action _onTick;
+    public Action onTick;
+    public Action<bool> onPause;
 }

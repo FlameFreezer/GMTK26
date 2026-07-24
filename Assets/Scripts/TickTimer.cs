@@ -6,7 +6,7 @@ public class TickTimer : MonoBehaviour
 {
     public double _ticksPerSecond;
     private double _timeSinceLastTick = 0.0;
-    private bool _isPaused = false;
+    private bool _isPaused = true;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -26,7 +26,7 @@ public class TickTimer : MonoBehaviour
             double secondsPerTick = 1.0 / _ticksPerSecond;
             if (_timeSinceLastTick >= secondsPerTick)
             {
-                Game.Instance().EventBus()._onTick?.Invoke();
+                Game.Instance().EventBus().onTick?.Invoke();
                 _timeSinceLastTick -= secondsPerTick;
             }
         }
@@ -36,6 +36,7 @@ public class TickTimer : MonoBehaviour
     {
         _isPaused = !_isPaused;
         _timeSinceLastTick = 0.0;
+        Game.Instance().EventBus().onPause?.Invoke(_isPaused);
         if(_isPaused)
         {
             Debug.Log("Tick Timer: Paused!");
@@ -44,5 +45,10 @@ public class TickTimer : MonoBehaviour
         {
             Debug.Log("Tick Timer: Unpaused!");
         }
+    }
+
+    public bool IsPaused()
+    {
+        return _isPaused;
     }
 }

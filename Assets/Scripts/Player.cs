@@ -8,7 +8,7 @@ public class Player : MonoBehaviour
 
     void Start() {
         Game.Instance()._player = gameObject;
-        Game.Instance().EventBus()._onTick += OnTick;
+        Game.Instance().EventBus().onTick += OnTick;
     }
 
     void Update() { }

@@ -13,7 +13,7 @@ public class GridController : MonoBehaviour
     {
         _grid.SetWidth(width);
         _grid.SetHeight(height);
-        Game.Instance().EventBus()._onTick += OnTick;    
+        Game.Instance().EventBus().onTick += OnTick;    
     }
 
     // Update is called once per frame
