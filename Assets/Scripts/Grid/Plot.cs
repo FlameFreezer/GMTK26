@@ -1,9 +1,15 @@
+using FMODUnity;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Plot : MonoBehaviour, IClickable
 {
+    //AUDIO REFS
+    [SerializeField ] StudioEventEmitter digNoise;
+
+
+    //VARS
     private uint _xIndex;
     private uint _yIndex;
     private GridController _parentGrid;
@@ -59,6 +65,7 @@ public class Plot : MonoBehaviour, IClickable
 
     public Plant PlacePlant(PlantTypes.Type type)
     {
+        digNoise.Play();
         Plant placedPlant = _parentGrid.SpawnPlantAtGridPosition(_xIndex, _yIndex, type);
         plantSprite.GetComponent<SpriteRenderer>().enabled = true;
         plantSprite.GetComponent<SpriteRenderer>().sprite = Game.Instance().plantSprites.GetSprite(type);
