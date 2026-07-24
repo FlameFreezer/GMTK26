@@ -74,7 +74,7 @@ public class GridController : MonoBehaviour {
                 GameObject newPlot = Instantiate(plotPrefab, transform.position + new Vector3(xOffset, 0, yOffset), Quaternion.identity, transform);
                 var plotComponent = newPlot.GetComponent<Plot>();
                 plotComponent.SetPosition(xIdx, yIdx);
-                plotComponent.SetParentGrid(_grid);
+                plotComponent.SetParentGrid(this);
                 plotComponent.Harvest(); // Remove sprite
                 
                 GetFlatIndexFromCoord(xIdx, yIdx, out int index);
@@ -130,6 +130,10 @@ public class GridController : MonoBehaviour {
         if (GetPlot(x, y, out Plot plot)) {
             plot.Harvest();
         }
+    }
+
+    public void SpawnPlantAtGridPosition(UInt32 x, UInt32 y, PlantTypes.Type type) {
+        _grid.SpawnPlantAtGridPosition(x, y, type);
     }
 
     // Update is called once per frame

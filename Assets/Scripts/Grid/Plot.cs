@@ -5,7 +5,7 @@ public class Plot : MonoBehaviour, IClickable
 {
     private uint _xIndex;
     private uint _yIndex;
-    private Grid _parentGrid;
+    private GridController _parentGrid;
     private readonly HashSet<Plot> _adjacentPlots = new();
     public GameObject plantSprite;
     public PlantTypes.Type plantType = PlantTypes.Type.NULL_PLANT;
@@ -63,7 +63,7 @@ public class Plot : MonoBehaviour, IClickable
         plantType = PlantTypes.Type.NULL_PLANT;
     }
 
-    public void SetParentGrid(Grid parentGrid)
+    public void SetParentGrid(GridController parentGrid)
     {
         _parentGrid = parentGrid;
     }
