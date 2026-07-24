@@ -45,7 +45,7 @@ Material:
     - _CharacterCount: 10
     - _CorruptionAmount: 1
     - _CorruptionSpeed: 20
-    - _CorruptionStrength: 0.021
+    - _CorruptionStrength: 0.05
     - _InvertBrightness: 1
     - _OutlineOpacity: 1
     - _OutlineThickness: 3
@@ -57,7 +57,7 @@ Material:
     - _UseSpriteColor: 0
     - _WobbleFrequency: 23.2
     - _WobbleSpeed: 0
-    - _WobbleStrength: 0
+    - _WobbleStrength: 0.15
     m_Colors:
     - _AsciiColor: {r: 1, g: 1, b: 1, a: 1}
     - _BackgroundColor: {r: 0, g: 0, b: 0, a: 0}
