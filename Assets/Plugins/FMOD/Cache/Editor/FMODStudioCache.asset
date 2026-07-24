@@ -15,7 +15,7 @@ MonoBehaviour:
   Path: Assets/FMOD/Desktop/Sound Effects.bank
   Name: Sound Effects
   StudioPath: bank:/Sound Effects
-  lastModified: 639205027136976121
+  lastModified: 639205076938861747
   FileSizes: []
   Exists: 1
 --- !u!114 &-7837419624675989848
@@ -33,7 +33,7 @@ MonoBehaviour:
   Path: Assets/FMOD/Desktop/Music.bank
   Name: Music
   StudioPath: bank:/Music
-  lastModified: 639205036258050512
+  lastModified: 639205076938719871
   FileSizes: []
   Exists: 1
 --- !u!114 &-1085040537726360607
@@ -78,7 +78,7 @@ MonoBehaviour:
   Path: Assets/FMOD/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 639205017084098085
+  lastModified: 639205076938543066
   FileSizes: []
   Exists: 1
 --- !u!114 &11400000
@@ -109,7 +109,7 @@ MonoBehaviour:
   StringsBanks:
   - {fileID: 6099674121338278224}
   cacheVersion: 131860
-  cacheTime: 639205036258050512
+  cacheTime: 639205076938861747
   SerializableEventsDict:
   - key: event:/CoinRattleNoise
     index: 0
@@ -215,7 +215,7 @@ MonoBehaviour:
   Path: Assets/FMOD/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 639205017084113206
+  lastModified: 639205076938613427
   FileSizes:
   - Name: 
     Value: 1016
