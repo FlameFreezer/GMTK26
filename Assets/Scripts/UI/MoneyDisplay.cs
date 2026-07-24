@@ -11,6 +11,7 @@ public class MoneyDisplay : MonoBehaviour {
 		} else {
 			Debug.LogError("No TMP_Text component on MoneyDisplay!");
 		}
+		_UpdateText(Game.Instance()._player.GetComponent<Player>().startingMoney);
 	}
 
 	private void _UpdateText(UInt32 amount) {

@@ -45,4 +45,10 @@ public class Player : MonoBehaviour
     private void OnTick() {
         Debug.Log($"Player: {_money} Time Shekels");
     }    
+
+    public void SelectPlant(PlantTypes.Type type)
+    {
+        Debug.Log($"Selected {PlantTypes.TypeToString(type)}");
+        selectedPlant = type;
+    }
 }

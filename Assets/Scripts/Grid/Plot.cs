@@ -41,7 +41,7 @@ public class Plot : MonoBehaviour, IClickable
 
     public void OnClick()
     {
-        if (plant != null && plant.type != PlantTypes.Type.NULL_PLANT) return;
+        if (plant != null) return;
         Player player = Game.Instance()._player.GetComponent<Player>();
         if (player.selectedPlant == PlantTypes.Type.NULL_PLANT)
         {
