@@ -94,6 +94,8 @@ public class Grid {
 
 	public void ResolveHarvesting() {
 		foreach(Queue<UInt32> queue in _harvestQueues) {
+			if (queue == null) continue;
+
 			foreach(UInt32 toHarvest in queue) {
 				Plant plant = _plants[(int)toHarvest];
 
@@ -102,6 +104,8 @@ public class Grid {
 		}
 
 		foreach(Queue<UInt32> queue in _harvestQueues) {
+			if (queue == null) continue;
+
 			while(queue.TryDequeue(out UInt32 toHarvest)) {
 				Plant plant = _plants[(int)toHarvest];
 
