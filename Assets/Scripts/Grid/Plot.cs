@@ -57,11 +57,12 @@ public class Plot : MonoBehaviour, IClickable
         PlacePlant(player.selectedPlant);
     }
 
-    void PlacePlant(PlantTypes.Type type)
+    public Plant PlacePlant(PlantTypes.Type type)
     {
-        _parentGrid.SpawnPlantAtGridPosition(_xIndex, _yIndex, type);
+        Plant placedPlant = _parentGrid.SpawnPlantAtGridPosition(_xIndex, _yIndex, type);
         plantSprite.GetComponent<SpriteRenderer>().enabled = true;
         plantSprite.GetComponent<SpriteRenderer>().sprite = Game.Instance().plantSprites.GetSprite(type);
+        return placedPlant;
     }
 
     public void Harvest() {

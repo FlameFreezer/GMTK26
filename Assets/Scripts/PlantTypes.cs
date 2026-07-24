@@ -7,7 +7,7 @@ public class PlantTypes
 		EYE_WEED,
         LAMBFLOWER,
         FUSSPOT,
-
+        TOADSTOOL,
         //KEEP AT BOTTOM
         NULL_PLANT,
     }
@@ -19,6 +19,7 @@ public class PlantTypes
             case Type.EYE_WEED: return "Eyeweed";
             case Type.LAMBFLOWER: return "Lambflower";
             case Type.FUSSPOT: return "Fusspot";
+            case Type.TOADSTOOL: return "Traveling Toadstool";
             case Type.NULL_PLANT: return "NULL_PLANT";
         }
         // UNREACHBALE
@@ -30,6 +31,7 @@ public class PlantTypes
         { Type.EYE_WEED, 1 },
         { Type.LAMBFLOWER, 7 },
         { Type.FUSSPOT, 20 },
+        { Type.TOADSTOOL, 16 },
     };
 }
 

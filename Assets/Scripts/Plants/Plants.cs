@@ -1,6 +1,6 @@
 using System;
-using System.Diagnostics;
-using Unity.VisualScripting;
+using System.Collections.Generic;
+using UnityEngine;
 
 public abstract class Plant {
 	public PlantTypes.Type type;
@@ -112,10 +112,11 @@ public class Fusspot : Plant
 		// Apply time reduction bonus
 		foreach(Plot adjacentPlot in plot.GetAdjacentPlots())
 		{
-			if (adjacentPlot.plant != null && adjacentPlot.plant.type != PlantTypes.Type.FUSSPOT)
-			{
-				adjacentPlot.plant.ticksUntilHarvest -= 2;
-			}
+			if (adjacentPlot.plant == null) continue;
+			Plant adjacentPlant = adjacentPlot.plant;
+			if (adjacentPlant.type == PlantTypes.Type.FUSSPOT) continue;
+			if (adjacentPlant.type == PlantTypes.Type.TOADSTOOL && (adjacentPlant as Toadstool).isTraveler) continue;
+			adjacentPlant.ticksUntilHarvest -= 2;
 		}
 
 		// Apply synergy
@@ -129,5 +130,47 @@ public class Fusspot : Plant
 		}
 
 		Complete = true;
+	}
+}
+
+public class Toadstool : Plant
+{
+	private uint _payout = 30;
+	public bool isTraveler = false;
+
+	public Toadstool()
+	{
+		ticksUntilHarvest = 5;
+		type = PlantTypes.Type.TOADSTOOL;
+	}
+
+	public override void Payout()
+	{
+		Game.Instance()._player.GetComponent<Player>().money += _payout;
+	}
+
+	public override void Harvest(Plot plot)
+	{
+		foreach(Plot adjacentPlot in plot.GetAdjacentPlots())
+		{
+			if (adjacentPlot.plant != null && adjacentPlot.plant.ticksUntilHarvest < 1)
+			{
+				List<Plot> openPlots = new();
+				foreach(Plot adj in plot.GetAdjacentPlots())
+				{
+					if (adj.plant == null)
+					{
+						openPlots.Add(adj);						
+					}
+				}
+				int index = UnityEngine.Random.Range(0, openPlots.Count);
+				Toadstool traveler = (Toadstool)openPlots[index].PlacePlant(PlantTypes.Type.TOADSTOOL);
+				traveler._payout = 2;
+				traveler.ticksUntilHarvest = 1;
+				traveler.isTraveler = true;
+				break;
+			}
+		}
+        Complete = true;
 	}
 }

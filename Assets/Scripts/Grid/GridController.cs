@@ -156,7 +156,7 @@ public class GridController : MonoBehaviour {
     // assumes there's not already a plant at this position.
     // TODO -- should we handle checking validity at the
     // input level?
-    public void SpawnPlantAtGridPosition(UInt32 x, UInt32 y, PlantTypes.Type type) {
+    public Plant SpawnPlantAtGridPosition(UInt32 x, UInt32 y, PlantTypes.Type type) {
         UInt32 plantId = y * width + x;
 
         Plant newPlant = null;
@@ -171,7 +171,10 @@ public class GridController : MonoBehaviour {
             case PlantTypes.Type.FUSSPOT:
                 newPlant = new Fusspot();
                 break;
-            default: return; // TODO - send an error
+            case PlantTypes.Type.TOADSTOOL:
+                newPlant = new Toadstool();
+                break;
+            default: throw new ArgumentException(); // TODO - send an error
         }
 
         newPlant.AssignId(plantId);
@@ -179,6 +182,7 @@ public class GridController : MonoBehaviour {
         plot.plant = newPlant;
 		
         newPlant.OnHarvestRequested += _harvestQueues[(int)type].Enqueue;
+        return newPlant;
     }
 
     // Update is called once per frame
