@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 public class Player : MonoBehaviour
 {
     public PlantTypes.Type selectedPlant = PlantTypes.Type.EYE_WEED;
+    public UInt32 startingMoney;
     private UInt32 _money;
 	public UInt32 money {
 		get { return _money; }
@@ -19,6 +20,7 @@ public class Player : MonoBehaviour
     void Start() {
         Game.Instance()._player = gameObject;
         Game.Instance().EventBus().onTick += OnTick;
+        money = startingMoney;
     }
 
     void Update() { }

@@ -45,13 +45,13 @@ public class Plot : MonoBehaviour, IClickable
             return;
         }
         uint plantCost = PlantTypes.costs[player.selectedPlant];
-        if(plantCost > player._money)
+        if(plantCost > player.money)
         {
-            Debug.Log($"Selected plant costs ${plantCost} but you only have {player._money}");
+            Debug.Log($"Selected plant costs ${plantCost} but you only have {player.money}");
             return;
         }
         _parentGrid.SpawnPlantAtGridPosition(_xIndex, _yIndex, player.selectedPlant);
-        player._money -= plantCost;
+        player.money -= plantCost;
         plantSprite.GetComponent<SpriteRenderer>().enabled = true;
     }
 
