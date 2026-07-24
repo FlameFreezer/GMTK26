@@ -67,7 +67,7 @@ public class GridController : MonoBehaviour {
 
     private void Initialize() {
         if (width <= 0 || height <= 0) {
-            Debug.LogWarning("GridController: width and height must be greater than 0 (Given: )");
+            Debug.LogWarning($"GridController: width and height must be greater than 0 (Given: w{width}, h{height})");
             return;
         }
         
