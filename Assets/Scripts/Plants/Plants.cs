@@ -39,10 +39,10 @@ public class EyeWeed : Plant {
 	}
 
 	public override void Tick() {
+		ticksUntilHarvest--;
 		if(ticksUntilHarvest < 1) {
 			InvokeOnHarvestRequested();
 		}
-		ticksUntilHarvest--;
 	}
 
 	public override void Harvest(Func<UInt32, GridQueryConfig, Func<Plant, bool>, UInt32> adjacentQueryCallback) {
