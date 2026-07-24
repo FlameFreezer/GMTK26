@@ -27,8 +27,8 @@ public class GridController : MonoBehaviour {
         Game.Instance().EventBus().onTick -= OnTick;
     }
 
-    private void GetFlatIndexFromCoord(uint x, uint y, out int index) {
-        index = (int)(y * width + x);
+    private void GetFlatIndexFromCoord(uint x, uint y, out uint index) {
+        index = y * width + x;
     }
     
     private bool Get2DCoord(uint index, out uint x, out uint y) {
@@ -41,28 +41,6 @@ public class GridController : MonoBehaviour {
         x = index % width;
         y = index / width;
         return true;
-    }
-
-    private List<Plot> GetAdjacentPlots(Plot[] grid, int xIndex, int yIndex) {
-        List<Plot> adjacentPlots = new List<Plot>();
-        
-        for (int yOffset = -1; yOffset <= 1; yOffset++) {
-            int adjacentY = yIndex + yOffset;
-            if (adjacentY < 0 || adjacentY >= height) continue;
-
-            for (int xOffset = -1; xOffset <= 1; xOffset++) {
-                int adjacentX = xIndex + xOffset;
-                if (adjacentX < 0 || adjacentX >= width) continue;
-
-                if (adjacentX == xIndex && adjacentY == yIndex) continue;
-                
-                GetFlatIndexFromCoord((uint)adjacentX, (uint)adjacentY, out int index);
-
-                adjacentPlots.Add(grid[index]);
-            }
-        }
-        
-        return adjacentPlots;
     }
 
     private void Initialize() {
@@ -92,16 +70,29 @@ public class GridController : MonoBehaviour {
                 plotComponent.SetParentGrid(this);
                 plotComponent.Remove(); // Remove sprite
                 
-                GetFlatIndexFromCoord(xIdx, yIdx, out int index);
+                GetFlatIndexFromCoord(xIdx, yIdx, out uint index);
                 plots[index] = plotComponent;
             }
         }
 
         // Pre-compute adjacency lookups into the grid plots, for skipping coordinate logic in lookup
         foreach (Plot plot in plots) {
-            plot.GetPosition(out uint x, out uint y);
-            foreach (Plot aP in GetAdjacentPlots(plots, (int) x, (int) y)) {
-                plot.AddAdjacentPlot(aP);
+            plot.GetPosition(out uint xIndex, out uint yIndex);
+        
+            for (int yOffset = -1; yOffset <= 1; yOffset++) {
+                int adjacentY = (int) yIndex + yOffset;
+                if (adjacentY < 0 || adjacentY >= height) continue;
+
+                for (int xOffset = -1; xOffset <= 1; xOffset++) {
+                    int adjacentX = (int) xIndex + xOffset;
+                    if (adjacentX < 0 || adjacentX >= width) continue;
+
+                    if (adjacentX == xIndex && adjacentY == yIndex) continue;
+                
+                    GetFlatIndexFromCoord((uint) adjacentX, (uint) adjacentY, out uint index);
+
+                    plot.AddAdjacentPlot(plots[index]);
+                }
             }
         }
 
@@ -200,11 +191,7 @@ public class GridController : MonoBehaviour {
         GetPlot1D(plantId, out Plot plot);
         plot.plant = newPlant;
 		
-        newPlant.OnHarvestRequested += index => AddPlantToHarvestQueue(type, index);
-    }
-    
-    private void AddPlantToHarvestQueue(PlantTypes.Type type, UInt32 index) {
-        _harvestQueues[(int)type].Enqueue(index);
+        newPlant.OnHarvestRequested += _harvestQueues[(int)type].Enqueue;
     }
 
     // Update is called once per frame
