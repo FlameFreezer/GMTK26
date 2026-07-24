@@ -50,6 +50,10 @@ public class GridController : MonoBehaviour {
         }
     }
 
+    public void Harvest() {
+        _grid.ResolveHarvesting();
+    }
+
     // Update is called once per frame
     private void Update() {
         
