@@ -19,7 +19,6 @@ public class Player : MonoBehaviour
 
     void Start() {
         Game.Instance()._player = gameObject;
-        Game.Instance().EventBus().onTick += OnTick;
         money = startingMoney;
     }
 
@@ -41,10 +40,6 @@ public class Player : MonoBehaviour
 			result.OnClick();
 		}
     }
-
-    private void OnTick() {
-        Debug.Log($"Player: {_money} Time Shekels");
-    }    
 
     public void SelectPlant(PlantTypes.Type type)
     {

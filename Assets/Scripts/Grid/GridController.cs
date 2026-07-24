@@ -205,6 +205,7 @@ public class GridController : MonoBehaviour {
     private void OnTick() {
         // The plant resolution order is defined here for now
         InvokeTick(PlantTypes.Type.EYE_WEED);
+        InvokeTick(PlantTypes.Type.LAMBFLOWER);
         Harvest();
     }
 
