@@ -24,6 +24,14 @@ public class PlantTypes
         throw new InvalidProgramException();
     }
 
+	public static Type StringToType(string str) {
+		return str.ToLower() switch {
+			"eyeweed" => Type.EYE_WEED,
+			"lambflower" => Type.LAMBFLOWER,
+			_ => Type.NULL_PLANT
+		};
+	}
+
     public static Dictionary<Type, uint> costs = new()
     {
         { Type.EYE_WEED, 2 },
