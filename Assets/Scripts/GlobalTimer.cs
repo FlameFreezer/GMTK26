@@ -1,4 +1,3 @@
-using System;
 using TMPro;
 using UnityEngine;
 
@@ -13,12 +12,13 @@ public class GlobalTimer : MonoBehaviour {
 	private double _costMutliplierPerClick = 1.25;
 
 	[SerializeField]
-	private double _addTimeCost = 200;
+	private uint _addTimeCost = 200;
 
 	[SerializeField]
 	private TextMeshProUGUI _display;
 
 	void Start() {
+		Game.Instance().globalTimer = this;
 		Game.Instance().EventBus().onTick += DecrementTimer;
 
 		UpdateDisplay();
@@ -31,14 +31,18 @@ public class GlobalTimer : MonoBehaviour {
 			Debug.Log($"{player.money} is not enough to afford cost of {_addTimeCost} to add time");
 			return;
 		}
-		//Make sure some casting shenanigans can't cause money to overflow
-		if ((uint)_addTimeCost > player.money) player.money = 0;
-		else player.money -= (uint)_addTimeCost;
+		player.money -= _addTimeCost;
 
 		_ticksRemaining += _ticksPerClick;
-		_addTimeCost *= _costMutliplierPerClick;
+		_addTimeCost = (uint)(_addTimeCost * _costMutliplierPerClick);
 
+		Game.Instance().EventBus().OnGlobalTimeAdded();
 		UpdateDisplay();
+	}
+
+	public uint GetAddTimeCost()
+	{
+		return (uint)_addTimeCost;
 	}
 
 	private void DecrementTimer() {
