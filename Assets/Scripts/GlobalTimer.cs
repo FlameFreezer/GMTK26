@@ -7,6 +7,15 @@ public class GlobalTimer : MonoBehaviour {
 	private int _ticksRemaining = 500;
 
 	[SerializeField]
+	private int _ticksPerClick = 50;
+
+	[SerializeField]
+	private double _costMutliplierPerClick = 1.25;
+
+	[SerializeField]
+	private double _addTimeCost = 200;
+
+	[SerializeField]
 	private TextMeshProUGUI _display;
 
 	void Start() {
@@ -15,8 +24,19 @@ public class GlobalTimer : MonoBehaviour {
 		UpdateDisplay();
 	}
 
-	private void AddTime(UInt32 delta) {
-		_ticksRemaining += (int)delta;
+	public void AddTime() {
+		Player player = Game.Instance()._player.GetComponent<Player>();
+		if(player.money < _addTimeCost)
+		{
+			Debug.Log($"{player.money} is not enough to afford cost of {_addTimeCost} to add time");
+			return;
+		}
+		//Make sure some casting shenanigans can't cause money to overflow
+		if ((uint)_addTimeCost > player.money) player.money = 0;
+		else player.money -= (uint)_addTimeCost;
+
+		_ticksRemaining += _ticksPerClick;
+		_addTimeCost *= _costMutliplierPerClick;
 
 		UpdateDisplay();
 	}
